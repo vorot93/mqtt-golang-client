@@ -1,0 +1,12 @@
+broker:
+    image: eclipse-mosquitto
+server:
+    build: .
+    command: -server -ip=tcp://broker:1883 "hello world"
+    links:
+        - broker
+client:
+    build: .
+    command: -ip=tcp://broker:1883 -maxinterval=3 "hello world"
+    links:
+        - broker
